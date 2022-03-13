@@ -1,5 +1,7 @@
 #+TITLE: Perl01
-* Inhalt :toc:
+#+EXCLUDE_TAGS: noexport
+
+* Inhalt :toc:noexport:
 - [[#hallo-welt][Hallo Welt]]
 - [[#ausgabe][Ausgabe]]
   - [[#ausgabe-von-zahlen][Ausgabe von Zahlen]]
