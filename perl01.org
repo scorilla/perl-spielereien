@@ -6,6 +6,12 @@
 - [[#ausgabe][Ausgabe]]
   - [[#ausgabe-von-zahlen][Ausgabe von Zahlen]]
   - [[#ausgabe-von-strings][Ausgabe von Strings]]
+- [[#operatoren][Operatoren]]
+  - [[#bit-operatoren][Bit-Operatoren]]
+  - [[#vergleichsoperatoren][Vergleichsoperatoren]]
+  - [[#boolsche-operatoren][Bool'sche Operatoren]]
+  - [[#string-operatoren][String-Operatoren]]
+- [[#variablen][Variablen]]
 
 * Hallo Welt
 Aufbau ähnlich zu =bash= und =C=. Definition von Interpreter und Import von Packeten.
@@ -84,3 +90,139 @@ print "\n";
 : '"Hallo Welt" wird oft als erstes Programm geschrieben'
 : '"Hallo Welt" wird oft als erstes Programm geschrieben'
 : '"Hallo Welt" wird oft als erstes Programm geschrieben'
+
+* Operatoren
+** Bit-Operatoren
+
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print "8 AND 4: ", 8&4, "\n";
+print "8 OR 4: ", 8|4, "\n";
+print "8 XOR 4: ", 8^4, "\n";
+print "NOT 4: ", ~4, "\n";
+#+end_src
+
+#+RESULTS:
+: 8 AND 4: 0
+: 8 OR 4: 12
+: 8 XOR 4: 12
+: NOT 4: 18446744073709551611
+
+** Vergleichsoperatoren
+
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print "8 == 4: ", 8==4, "\n";
+print "8 > 4: ", 8>4, "\n";
+print "8 < 4: ", 8<4, "\n";
+print "8 != 4: ", 8!=4, "\n";
+print "8 >= 4: ", 8>=4, "\n";
+print "8 <= 4: ", 8<=4, "\n";
+# folgender Operator ergibt: 0, falls gleich; -1, falls 4>8 und +1, falls 8>4
+print "8 <=> 4: ", 8<=>4, "\n";
+
+#+end_src
+
+#+RESULTS:
+: 8 == 4:
+: 8 > 4: 1
+: 8 < 4:
+: 8 != 4: 1
+: 8 >= 4: 1
+: 8 <= 4:
+: 8 <=> 4: 1
+
+** Bool'sche Operatoren
+Obacht bei ausgeschriebene Operatoren "and" und "or", hier wendet Perl eine "lazy evaluation" an und stoppt, sobald eine zutreffende Aussage erkannt wid. Daher wird u.a. der Zeilenumbruch der 2. Codezeile nicht dargestellt.
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print "6>3 AND 3>4: ", 6>3 && 3>4, "\n";
+print "6>3 AND 3>4: ", 6>3 and 3>4, "\n";
+print "6>3 OR 3>4: ", 6>3 || 3>4, "\n";
+print "6>3 OR 3>4: ", 6>3 or 3>4, "\n";
+print "!(2>3): ", !(2>3), "\n";
+print "!2>3: ", !2>3, "\n";
+#+END_SRC
+
+#+RESULTS:
+: 6>3 AND 3>4:
+: 6>3 AND 3>4: 16>3 OR 3>4: 1
+: 6>3 OR 3>4: 1!(2>3): 1
+: !2>3:
+
+** String-Operatoren
+*** Stings kombinieren
+Bei Strings spielt es keine Rolle, ob man Sätze als Zusammenschluss mehrerer Wörter oder mittels des =concatenation operator= zusammensetzt. Letzteres geht etwas schneller. Ebenso werden Rechenoperationen zuerst ausgeführt und dann mit dem restlichen Text zusammengebastelt. Auch das mehrmalige Aneinanderhängen ist möglich.
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print "Print ", "several ", "strings ", "here.","\n";
+print "Print " . "several " . "strings " . "here." . "\n";
+print "Sieben mal Sieben ergibt " . 7*7 . "\n";
+print "Ha! "x3, "\n";
+print "na"x(2*4) . " Batmaaaan!", "\n";
+#+END_SRC
+
+#+RESULTS:
+: Print several strings here.
+: Print several strings here.
+: Sieben mal Sieben ergibt 49
+: Ha! Ha! Ha!
+: nananananananana Batman!
+
+*** Strings vergleichen
+Auch ein Vergleich von Strings ist möglich. Hier wird die Zeichenkette zeichenweise verglichen. Voraussetzung ist allerdings, dass er Operator *ausgeschrieben* wird.
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print"Which came first, the chicken or the egg? ";
+print "chicken" cmp "egg", "\n";
+print "Are dogs greater than cats? ";
+print "dog" gt "cat", "\n";
+print "Is ^ less than + ? ";
+print "^" lt "+", "\n";
+#+END_SRC
+
+#+RESULTS:
+: Which came first, the chicken or the egg? -1
+: Are dogs greater than cats? 1
+: Is ^ less than + ?
+
+Wendet man hingegen "gewöhnliche" Binäroperatoren an, wird der String zuerst in eine Zahl umgewandelt und dann verglichen. Da beide nicht mit einer Ziffer beginnen, werden beide gleichermaßen als "0" interpretiert. Die Umwandlung kann man selbst als Summe aus String und "0" nachvollziehen.
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print "'six' als Zahl: ", "six" + 0, "\n";
+print "'four als Zahl: ", "four" + 0, "\n";
+print "'sixand4' als Zahl: ", "sixand4" + 0, "\n";
+print "'4andsix' als Zahl: ", "4andsix" + 0, "\n";
+
+print "Test one: ", "four" eq "six", "\n";
+print "Test two: ", "four" == "six", "\n";
+#+END_SRC
+
+#+RESULTS:
+: 'six' als Zahl: 0
+: 'four als Zahl: 0
+: 'sixand4' als Zahl: 0
+: '4andsix' als Zahl: 4
+: Test one:
+: Test two: 1
+
+
+* Variablen
