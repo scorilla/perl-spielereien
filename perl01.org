@@ -1,0 +1,38 @@
+#+TITLE: Perl01
+
+* Hallo Welt
+Aufbau ähnlich zu =bash= und =C=. Definition von Interpreter und Import von Packeten.
+Flag "-w", um zusätzliche Interpreter-Warnungen mit anzuzeigen.
+*Wichtig*: ";" am Zeilenende.
+
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+
+print "Hallo Welt!\n";
+#+end_src
+
+#+RESULTS:
+: Hallo Welt!
+
+* Ausgabe von Zahlen
+Perl interpretiert die Ausgabe von Zahlen generell als Dezimalzahl. Möchte man stattdessen binär oder hexadezimal, muss ein entsprechendes "Kontrollzeichen" davor stehen. Bei binär ist es eine =führende 0=, bei hexadezimal ein =führendes 0x=.
+
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print "Binaer: ", 01111;
+print "\n";
+print "Hex: ", 0xAF;
+print "\n";
+print "Deizomal: ", 1111;
+
+#+end_src
+
+#+RESULTS:
+: Binaer: 585
+: Hex: 175
+: Deizomal: 1111
