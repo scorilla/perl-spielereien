@@ -1,4 +1,9 @@
 #+TITLE: Perl01
+* Inhalt :toc:
+- [[#hallo-welt][Hallo Welt]]
+- [[#ausgabe][Ausgabe]]
+  - [[#ausgabe-von-zahlen][Ausgabe von Zahlen]]
+  - [[#ausgabe-von-strings][Ausgabe von Strings]]
 
 * Hallo Welt
 Aufbau ähnlich zu =bash= und =C=. Definition von Interpreter und Import von Packeten.
@@ -16,7 +21,8 @@ print "Hallo Welt!\n";
 #+RESULTS:
 : Hallo Welt!
 
-* Ausgabe von Zahlen
+* Ausgabe
+** Ausgabe von Zahlen
 Perl interpretiert die Ausgabe von Zahlen generell als Dezimalzahl (=Integer=). Möchte man stattdessen binär oder hexadezimal, muss ein entsprechendes "Kontrollzeichen" davor stehen. Bei binär ist es eine =führende 0=, bei hexadezimal ein =führendes 0x=. Lange Zahlen können zur besseren Lesbarkeit durch "_" aufgeteilt werden.
 
 #+begin_src perl :results output :exports both
@@ -26,7 +32,7 @@ use warnings;
 
 print "Octal: ", 01111;
 print "\n";
-print "Binäre: ", 0b1111;
+print "Binär: ", 0b1111;
 print "\n";
 print "Hex: ", 0xAF;
 print "\n";
@@ -35,12 +41,44 @@ print "\n";
 print "Lange Zahl: ", 123_456_789;
 print "\n";
 print "Float: ", 3.141592654;
-
 #+end_src
 
 #+RESULTS:
-: Binaer: 585
+: Octal: 585
+: Binär: 15
 : Hex: 175
 : Deizomal: 1111
 : Lange Zahl: 123456789
 : Float: 3.141592654
+
+** Ausgabe von Strings
+Perl unterscheidet bei Strings in einfache und doppelte Anführungszeichen. Der Unterschied ist, wie bei =bash= auch, die Interpretierung von Steuerzeichen, wie "\t". Diese können aber durch ein "\" gecancelt werden. Es können auch verschiedene Zeichen kombiniert werden, sodass auch eine Ausgabe von Zitaten möglich wird. Eine weitere Alternative sind die sog. *quote-like operators*. Diese definieren ein umschließende Begrenzer des Textes und vereinfachen so die Lesbarkeit.
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+print 'Hallo\t Welt';
+print "\n";
+print "Hallo\t Welt";
+print "\n";
+print "Hallo\\t Welt";
+print "\n";
+print '"Halt, STOP!"';
+print "\n";
+print qq<'"Hallo Welt" wird oft als erstes Programm geschrieben'>;
+print "\n";
+print qq|'"Hallo Welt" wird oft als erstes Programm geschrieben'|;
+print "\n";
+print qq('"Hallo Welt" wird oft als erstes Programm geschrieben');
+print "\n";
+#+end_src
+
+#+RESULTS:
+: Hallo\t Welt
+: Hallo	 Welt
+: Hallo\t Welt
+: "Halt, STOP!"
+: '"Hallo Welt" wird oft als erstes Programm geschrieben'
+: '"Hallo Welt" wird oft als erstes Programm geschrieben'
+: '"Hallo Welt" wird oft als erstes Programm geschrieben'
