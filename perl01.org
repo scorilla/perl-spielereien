@@ -17,18 +17,24 @@ print "Hallo Welt!\n";
 : Hallo Welt!
 
 * Ausgabe von Zahlen
-Perl interpretiert die Ausgabe von Zahlen generell als Dezimalzahl. Möchte man stattdessen binär oder hexadezimal, muss ein entsprechendes "Kontrollzeichen" davor stehen. Bei binär ist es eine =führende 0=, bei hexadezimal ein =führendes 0x=.
+Perl interpretiert die Ausgabe von Zahlen generell als Dezimalzahl (=Integer=). Möchte man stattdessen binär oder hexadezimal, muss ein entsprechendes "Kontrollzeichen" davor stehen. Bei binär ist es eine =führende 0=, bei hexadezimal ein =führendes 0x=. Lange Zahlen können zur besseren Lesbarkeit durch "_" aufgeteilt werden.
 
 #+begin_src perl :results output :exports both
 #!/usr/bin/perl
 use strict;
 use warnings;
 
-print "Binaer: ", 01111;
+print "Octal: ", 01111;
+print "\n";
+print "Binäre: ", 0b1111;
 print "\n";
 print "Hex: ", 0xAF;
 print "\n";
 print "Deizomal: ", 1111;
+print "\n";
+print "Lange Zahl: ", 123_456_789;
+print "\n";
+print "Float: ", 3.141592654;
 
 #+end_src
 
@@ -36,3 +42,5 @@ print "Deizomal: ", 1111;
 : Binaer: 585
 : Hex: 175
 : Deizomal: 1111
+: Lange Zahl: 123456789
+: Float: 3.141592654
