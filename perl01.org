@@ -228,6 +228,7 @@ print "Test two: ", "four" == "six", "\n";
 
 
 * Variablen
+*Achtung!*: Perl hat einige geschützte Variablennamen. Dazu gehören u.a. "$a" und "$b". Diese können genutzt werden, sollten es aber nicht!
 ** Scalar
 *** String
 Scalar Variablen beginnen mit einem "$"-Zeichen. Man kann ihnen beliebige Datentypen zuweisen, deren Länge nur durch den Arbeitsspeicher begrenzt sind. Ihnen können im Verlauf des Programmes auch andere Werte zugewiesen werden ohne sie wieder neu initialisieren zu müssen.
@@ -255,12 +256,12 @@ Variablen können auch Integer Werte zugewiesen werden; z.B. direkt aus einer Be
 use strict;
 use warnings;
 
-$a = 2*3;
-print "2 mal 3 macht: ", $a, "\n";
-$a += 3;
-print "und 3 macht: ", $a, "\n";
-$b = $a*2;
-print "mal 2 macht: ", $b, "\n";
+my $zahl1 = 2*3;
+print "2 mal 3 macht: ", $zahl1, "\n";
+$zahl1 += 3;
+print "und 3 macht: ", $zahl1, "\n";
+my $zahl2 = $zahl1*2;
+print "mal 2 macht: ", $zahl2, "\n";
 #+END_SRC
 
 #+RESULTS:
