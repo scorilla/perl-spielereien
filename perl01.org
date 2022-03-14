@@ -12,6 +12,8 @@
   - [[#boolsche-operatoren][Bool'sche Operatoren]]
   - [[#string-operatoren][String-Operatoren]]
 - [[#variablen][Variablen]]
+  - [[#scalar][Scalar]]
+- [[#referenzen][Referenzen]]
 
 * Hallo Welt
 Aufbau ähnlich zu =bash= und =C=. Definition von Interpreter und Import von Packeten.
@@ -226,3 +228,45 @@ print "Test two: ", "four" == "six", "\n";
 
 
 * Variablen
+** Scalar
+*** String
+Scalar Variablen beginnen mit einem "$"-Zeichen. Man kann ihnen beliebige Datentypen zuweisen, deren Länge nur durch den Arbeitsspeicher begrenzt sind. Ihnen können im Verlauf des Programmes auch andere Werte zugewiesen werden ohne sie wieder neu initialisieren zu müssen.
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $name = "Bob";
+print "My name is ", $name, "\n";
+$name = "Alice";
+print "My name is ", $name, "\n";
+#+END_SRC
+
+#+RESULTS:
+: My name is Bob
+: My name is Alice
+
+
+*** Integer
+Variablen können auch Integer Werte zugewiesen werden; z.B. direkt aus einer Berechnung heraus.
+
+#+begin_src perl :results output :exports both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+$a = 2*3;
+print "2 mal 3 macht: ", $a, "\n";
+$a += 3;
+print "und 3 macht: ", $a, "\n";
+$b = $a*2;
+print "mal 2 macht: ", $b, "\n";
+#+END_SRC
+
+#+RESULTS:
+: 2 mal 3 macht: 6
+: und 3 macht: 9
+: mal 2 macht: 18
+
+* Referenzen
+Buch "Beginning Perl": https://learn.perl.org/books/beginning-perl/
