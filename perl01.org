@@ -13,6 +13,7 @@
   - [[#string-operatoren][String-Operatoren]]
 - [[#variablen][Variablen]]
   - [[#scalar][Scalar]]
+  - [[#scoping][Scoping]]
 - [[#referenzen][Referenzen]]
 
 * Hallo Welt
@@ -268,6 +269,104 @@ print "mal 2 macht: ", $zahl2, "\n";
 : 2 mal 3 macht: 6
 : und 3 macht: 9
 : mal 2 macht: 18
+
+
+Ebenso ist es möglich mehrere Variablen mit der selben Variable zu initialisieren.
+
+#+begin_src perl :results output :export both
+#!/usr/bin/perl
+use strict;
+use warnings;
+my ($num1, $num2, $num3, $num4);
+
+$num1 = $num2 = $num3 = $num4 = 5;
+print "Zahlen: ", $num1, $num2, $num3, $num4, "\n";
+#+end_src
+
+#+RESULTS:
+: Zahlen: 5555
+
+
+** Scoping
+*** lokal definierte Variablen
+Variablen werden generell innerhalb einer bestimmten Laufzeitumgebung definiert; vgl. local/global.
+In folgendem Beispiel wird zuerst eine Variable "$record" definiert, die innerhalb eines Blockes neu - und gänzlich unanhängig von der vorherigen - definiert wird und nur innerhalb es Blockes gültig ist; eine sog. *lexikale* Variable. Nach Ende des Blockes nennt man die Variable "out of scope".
+
+#+begin_src perl :results output :export both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $record = 4;
+print "Ausserhalb hat die Variable record den Wert ", $record, "\n";
+{
+    my $record;
+    $record = 7;
+    print "Innerhalb des Blockes hingegen ", $record, "\n";
+}
+
+print "Wieder ausserhalb wieder ", $record, "\n";
+#+end_src
+
+#+RESULTS:
+: Ausserhalb hat die Variable record den Wert 4
+: Innerhalb des Blockes hingegen 7
+: Wieder ausserhalb wieder 4
+
+
+*** global definierte Variable
+Um eine Variable global zu definieren, nutzt man statt =my $var= =our $var=.
+
+#+begin_src perl :results output :export both
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $record = 4;
+print "Ausserhalb hat die Variable record den Wert ", $record, "\n";
+{
+    my $record;
+    $record = 7;
+    print "Innerhalb des Blockes hingegen ", $record, "\n";
+}
+
+print "Wieder ausserhalb wieder ", $record, "\n\n";
+
+our $var = 4;
+print "Ausserhalb hat die Variable record den Wert ", $var, "\n";
+{
+    my $var;
+    $var = 7;
+    print "Innerhalb des Blockes hingegen ", $var, "\n";
+}
+
+print "Wieder ausserhalb wieder ", $var, "\n\n";
+
+our $stuff = 4;
+print "Ausserhalb hat die Variable record den Wert ", $var, "\n";
+{
+    our $stuff;
+    $stuff = 7;
+    print "Innerhalb des Blockes hingegen ", $stuff, "\n";
+}
+
+print "Wieder ausserhalb wieder ", $stuff, "\n";
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Ausserhalb hat die Variable record den Wert 4
+Innerhalb des Blockes hingegen 7
+Wieder ausserhalb wieder 4
+
+Ausserhalb hat die Variable record den Wert 4
+Innerhalb des Blockes hingegen 7
+Wieder ausserhalb wieder 4
+Ausserhalb hat die Variable record den Wert 4
+Innerhalb des Blockes hingegen 7
+Wieder ausserhalb wieder 7
+#+end_example
+
 
 * Referenzen
 Buch "Beginning Perl": https://learn.perl.org/books/beginning-perl/
