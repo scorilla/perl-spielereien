@@ -14,6 +14,7 @@
 - [[#variablen][Variablen]]
   - [[#scalar][Scalar]]
   - [[#scoping][Scoping]]
+  - [[#listen][Listen]]
 - [[#referenzen][Referenzen]]
 
 * Hallo Welt
@@ -333,7 +334,7 @@ print "Ausserhalb hat die Variable record den Wert ", $record, "\n";
 print "Wieder ausserhalb wieder ", $record, "\n\n";
 
 our $var = 4;
-print "Ausserhalb hat die Variable record den Wert ", $var, "\n";
+print "Ausserhalb hat die Variable var den Wert ", $var, "\n";
 {
     my $var;
     $var = 7;
@@ -343,7 +344,7 @@ print "Ausserhalb hat die Variable record den Wert ", $var, "\n";
 print "Wieder ausserhalb wieder ", $var, "\n\n";
 
 our $stuff = 4;
-print "Ausserhalb hat die Variable record den Wert ", $var, "\n";
+print "Ausserhalb hat die Variable stuff den Wert ", $var, "\n";
 {
     our $stuff;
     $stuff = 7;
@@ -359,14 +360,74 @@ Ausserhalb hat die Variable record den Wert 4
 Innerhalb des Blockes hingegen 7
 Wieder ausserhalb wieder 4
 
-Ausserhalb hat die Variable record den Wert 4
+Ausserhalb hat die Variable var den Wert 4
 Innerhalb des Blockes hingegen 7
 Wieder ausserhalb wieder 4
-Ausserhalb hat die Variable record den Wert 4
+
+Ausserhalb hat die Variable stuff den Wert 4
 Innerhalb des Blockes hingegen 7
 Wieder ausserhalb wieder 7
 #+end_example
 
+*** Standardeingabe
+Definiere Variablen über Standardeingabe. (klappt in =org-babel= nicht richtig)
+#+begin_src perl :results output :export both
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+print "Gib' mir mal ne Zahl ,bidde: ";
+my $zahl = <STDIN>;
+print "Ach, was ist ", $zahl, " fuer eine schoene Zahl!\n"
+#+end_src
+
+#+RESULTS:
+: Gib' mir mal ne Zahl ,bidde: Ach, was ist  fuer eine schoene Zahl!
+
+
+** Listen
+Listen werden oftmals mit der bereits bekannten *qq( ... )* geschrieben. Bei Listen unterscheidet es sich jedoch durch ein *qw( ... )*.
+
+#+begin_src perl :results output :export both
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+my $month = 0;
+print qw(
+    Januar  Februar Maerz
+    April   Mai Juni
+    Juli    August  September
+    Oktober November    Dezember
+    )[$month], "\n";
+
+my $month = -1;
+print qw(
+    Januar  Februar Maerz
+    April   Mai Juni
+    Juli    August  September
+    Oktober November    Dezember
+    )[$month, $month+1, $month+5],"\n";
+
+print qw(
+    Januar  Februar Maerz
+    April   Mai Juni
+    Juli    August  September
+    Oktober November    Dezember
+    )[(1..4)],"\n";
+
+print "Hochzaehlen: ", (1..9), "\n";
+print "Runterzaehlen: ", (9..1), "\n";
+print "Runterzaehlen: ", reverse(1..9), "\n";
+#+end_src
+
+#+RESULTS:
+: Januar
+: DezemberJanuarMai
+: FebruarMaerzAprilMai
+: Hochzaehlen: 123456789
+: Runterzaehlen:
+: Runterzaehlen: 987654321
 
 * Referenzen
 Buch "Beginning Perl": https://learn.perl.org/books/beginning-perl/
