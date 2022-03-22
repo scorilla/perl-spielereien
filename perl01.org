@@ -15,6 +15,7 @@
   - [[#scalar][Scalar]]
   - [[#scoping][Scoping]]
   - [[#listen][Listen]]
+  - [[#arrays][Arrays]]
 - [[#referenzen][Referenzen]]
 
 * Hallo Welt
@@ -428,6 +429,25 @@ print "Runterzaehlen: ", reverse(1..9), "\n";
 : Hochzaehlen: 123456789
 : Runterzaehlen:
 : Runterzaehlen: 987654321
+
+** Arrays
+Initialisierung mit "@" und unterscheiden sich von normalen Variablen gänzlich.
+#+begin_src perl :results output :export both
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+my @months;
+my $months;
+@months = qw(Januar Februar Maerz April Mai Juni Juli August September Oktober November Dezember);
+$months = 3;
+print @months, "\n";
+print $months, "\n";
+#+end_src
+
+#+RESULTS:
+: JanuarFebruarMaerzAprilMaiJuniJuliAugustSeptemberOktoberNovemberDezember
+: 3
 
 * Referenzen
 Buch "Beginning Perl": https://learn.perl.org/books/beginning-perl/
