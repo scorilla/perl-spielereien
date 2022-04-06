@@ -370,7 +370,7 @@ Innerhalb des Blockes hingegen 7
 Wieder ausserhalb wieder 7
 #+end_example
 
-*** Standardeingabe
+*** COMMENT Standardeingabe
 Definiere Variablen über Standardeingabe. (klappt in =org-babel= nicht richtig)
 #+begin_src perl :results output :export both
 #!/usr/bin/perl
@@ -443,11 +443,34 @@ my $months;
 $months = 3;
 print @months, "\n";
 print $months, "\n";
+
+
+# kombiniere Arrays
+
+my @array1 = (1,2,3);
+my @array2;
+@array2 = (@array1, 4,5,6);
+print "@array2\n";
+
+@array2 = (3,5,7,9);
+@array2 = (1, @array2, 11);
+print "@array2\n";
+
+
+# mehrere Variablen aus Array
+
+my @array = (10,20,30);
+my $var1; my $var2; my $var3;
+($var1, $var2, $var3) = @array;
+print "$var1, $var2, $var3\n"
 #+end_src
 
 #+RESULTS:
 : JanuarFebruarMaerzAprilMaiJuniJuliAugustSeptemberOktoberNovemberDezember
 : 3
+: 1 2 3 4 5 6
+: 1 3 5 7 9 11
+: 10, 20, 30
 
 * Referenzen
 Buch "Beginning Perl": https://learn.perl.org/books/beginning-perl/
